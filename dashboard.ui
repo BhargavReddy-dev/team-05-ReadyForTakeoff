@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>750</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Skybook OCC Dispatch Dashboard</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+    QMainWindow {
+        background-color: #f4f6f9;
+    }
+    #sidebarFrame {
+        background-color: #1a437c;
+        border: none;
+    }
+    QToolButton {
+        color: white;
+        background: transparent;
+        border: none;
+        padding: 12px;
+        font-size: 16px;
+    }
+    QToolButton:hover {
+        background-color: #245ba3;
+        border-radius: 4px;
+    }
+    #headerFrame {
+        background-color: #1f5296;
+        border: none;
+    }
+    #dispatchLabel {
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        padding-left: 10px;
+    }
+    #searchBar {
+        background-color: white;
+        border: 1px solid #ccd4e0;
+        border-radius: 4px;
+        padding: 4px 8px;
+    }
+    QTableWidget {
+        background-color: white;
+        border: 1px solid #e1e6eb;
+        gridline-color: #eef2f7;
+        border-radius: 6px;
+        font-size: 13px;
+    }
+    QHeaderView::section {
+        background-color: #eff3f8;
+        color: #55637a;
+        padding: 8px;
+        font-weight: bold;
+        border: none;
+        border-bottom: 2px solid #d2d9e1;
+    }
+   </string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="mainHorizontalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <!-- Left Sidebar Panel -->
+     <widget class="QFrame" name="sidebarFrame">
+      <property name="minimumSize">
+       <size>
+        <width>60</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>60</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <layout class="QVBoxLayout" name="sidebarLayout">
+       <property name="spacing">
+        <number>15</number>
+       </property>
+       <property name="topMargin">
+        <number>20</number>
+       </property>
+       <item>
+        <widget class="QToolButton" name="btnPlane">
+         <property name="text">
+          <string>✈</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="btnGrid">
+         <property name="text">
+          <string>☷</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="btnWeather">
+         <property name="text">
+          <string>☁</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="btnPin">
+         <property name="text">
+          <string>📌</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="sidebarSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <!-- Right Main Content Panel -->
+     <layout class="QVBoxLayout" name="contentVerticalLayout">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <property name="leftMargin">
+       <number>15</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>15</number>
+      </property>
+      <property name="bottomMargin">
+       <number>15</number>
+      </property>
+      <item>
+       <!-- Top Navigation Header -->
+       <widget class="QFrame" name="headerFrame">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+        <layout class="QHBoxLayout" name="headerLayout">
+         <item>
+          <widget class="QLabel" name="dispatchLabel">
+           <property name="text">
+            <string>DISPATCH — OCC GLOBAL FLIGHT TRACKING</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="headerSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <!-- Color Legends Top Right Corner -->
+         <item>
+          <widget class="QLabel" name="lblRedPriority">
+           <property name="styleSheet">
+            <string notr="true">background-color: #ff4d4d; color: white; padding: 4px 8px; font-weight: bold; border-radius: 4px; font-size: 11px;</string>
+           </property>
+           <property name="text">
+            <string>Priority</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lblOrangePriority">
+           <property name="styleSheet">
+            <string notr="true">background-color: #ffa500; color: white; padding: 4px 8px; font-weight: bold; border-radius: 4px; font-size: 11px;</string>
+           </property>
+           <property name="text">
+            <string>Moderate Priority</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lblYellowPriority">
+           <property name="styleSheet">
+            <string notr="true">background-color: #ffff4d; color: black; padding: 4px 8px; font-weight: bold; border-radius: 4px; font-size: 11px;</string>
+           </property>
+           <property name="text">
+            <string>Less Priority</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="searchBar">
+           <property name="minimumSize">
+            <size>
+             <width>180</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="placeholderText">
+            <string>Filter board...</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <!-- Main Flight Status Table Widget (8 Columns, 30 Rows) -->
+       <widget class="QTableWidget" name="flightTable">
+        <property name="rowCount">
+         <number>30</number>
+        </property>
+        <column>
+         <property name="text">
+          <string>Date</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Flight Number</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Tail Number</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Origin</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Destination</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Delay in Depart</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Delay in Arrival</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Status</string>
+         </property>
+        </column>
+        
+        <!-- Row 0 -->
+        <row/>
+        <item row="0" column="0"><property name="text"><string>05 Feb</string></property></item>
+        <item row="0" column="1"><property name="text"><string>BYT983</string></property></item>
+        <item row="0" column="2"><property name="text"><string>N104AA</string></property></item>
+        <item row="0" column="3"><property name="text"><string>BHX</string></property></item>
+        <item row="0" column="4"><property name="text"><string>CDG</string></property></item>
+        <item row="0" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="0" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="0" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 1 -->
+        <row/>
+        <item row="1" column="0"><property name="text"><string>05 Feb</string></property></item>
+        <item row="1" column="1"><property name="text"><string>MSR002</string></property></item>
+        <item row="1" column="2"><property name="text"><string>N552DL</string></property></item>
+        <item row="1" column="3"><property name="text"><string>AMS</string></property></item>
+        <item row="1" column="4"><property name="text"><string>JFK</string></property></item>
+        <item row="1" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="1" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="1" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 2: ENTIRE ROW RED HIGHLIGHT -->
+        <row/>
+        <item row="2" column="0"><property name="text"><string>05 Feb</string></property><property name="background"><color><red>255</red><green>77</green><blue>77</blue></color></property></item>
+        <item row="2" column="1"><property name="text"><string>BYT987</string></property><property name="background"><color><red>255</red><green>77</green><blue>77</blue></color></property></item>
+        <item row="2" column="2"><property name="text"><string>N819UA</string></property><property name="background"><color><red>255</red><green>77</green><blue>77</blue></color></property></item>
+        <item row="2" column="3"><property name="text"><string>GLA</string></property><property name="background"><color><red>255</red><green>77</green><blue>77</blue></color></property></item>
+        <item row="2" column="4"><property name="text"><string>ORD</string></property><property name="background"><color><red>255</red><green>77</green><blue>77</blue></color></property></item>
+        <item row="2" column="5"><property name="text"><string>02:40</string></property><property name="background"><color><red>255</red><green>77</green><blue>77</blue></color></property></item>
+        <item row="2" column="6"><property name="text"><string>02:25</string></property><property name="background"><color><red>255</red><green>77</green><blue>77</blue></color></property></item>
+        <item row="2" column="7"><property name="text"><string>Cancelled</string></property><property name="background"><color><red>255</red><green>77</green><blue>77</blue></color></property></item>
+        
+        <!-- Row 3 -->
+        <row/>
+        <item row="3" column="0"><property name="text"><string>05 Feb</string></property></item>
+        <item row="3" column="1"><property name="text"><string>BYT985</string></property></item>
+        <item row="3" column="2"><property name="text"><string>G-XWBA</string></property></item>
+        <item row="3" column="3"><property name="text"><string>LBA</string></property></item>
+        <item row="3" column="4"><property name="text"><string>LHR</string></property></item>
+        <item row="3" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="3" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="3" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 4 -->
+        <row/>
+        <item row="4" column="0"><property name="text"><string>05 Feb</string></property></item>
+        <item row="4" column="1"><property name="text"><string>DRD001</string></property></item>
+        <item row="4" column="2"><property name="text"><string>EI-EJM</string></property></item>
+        <item row="4" column="3"><property name="text"><string>KEF</string></property></item>
+        <item row="4" column="4"><property name="text"><string>FCO</string></property></item>
+        <item row="4" column="5"><property name="text"><string>00:05</string></property></item>
+        <item row="4" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="4" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 5: ENTIRE ROW ORANGE HIGHLIGHT -->
+        <row/>
+        <item row="5" column="0"><property name="text"><string>05 Feb</string></property><property name="background"><color><red>255</red><green>165</green><blue>0</blue></color></property></item>
+        <item row="5" column="1"><property name="text"><string>BYT984</string></property><property name="background"><color><red>255</red><green>165</green><blue>0</blue></color></property></item>
+        <item row="5" column="2"><property name="text"><string>A6-EEQ</string></property><property name="background"><color><red>255</red><green>165</green><blue>0</blue></color></property></item>
+        <item row="5" column="3"><property name="text"><string>ABZ</string></property><property name="background"><color><red>255</red><green>165</green><blue>0</blue></color></property></item>
+        <item row="5" column="4"><property name="text"><string>DXB</string></property><property name="background"><color><red>255</red><green>165</green><blue>0</blue></color></property></item>
+        <item row="5" column="5"><property name="text"><string>01:15</string></property><property name="background"><color><red>255</red><green>165</green><blue>0</blue></color></property></item>
+        <item row="5" column="6"><property name="text"><string>01:05</string></property><property name="background"><color><red>255</red><green>165</green><blue>0</blue></color></property></item>
+        <item row="5" column="7"><property name="text"><string>Late aircraft</string></property><property name="background"><color><red>255</red><green>165</green><blue>0</blue></color></property></item>
+        
+        <!-- Row 6 -->
+        <row/>
+        <item row="6" column="0"><property name="text"><string>05 Feb</string></property></item>
+        <item row="6" column="1"><property name="text"><string>MSR004</string></property></item>
+        <item row="6" column="2"><property name="text"><string>LN-RGG</string></property></item>
+        <item row="6" column="3"><property name="text"><string>AMS</string></property></item>
+        <item row="6" column="4"><property name="text"><string>OSL</string></property></item>
+        <item row="6" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="6" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="6" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 7 -->
+        <row/>
+        <item row="7" column="0"><property name="text"><string>05 Feb</string></property></item>
+        <item row="7" column="1"><property name="text"><string>MSR003</string></property></item>
+        <item row="7" column="2"><property name="text"><string>F-HPJA</string></property></item>
+        <item row="7" column="3"><property name="text"><string>ORY</string></property></item>
+        <item row="7" column="4"><property name="text"><string>CDG</string></property></item>
+        <item row="7" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="7" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="7" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 8: ENTIRE ROW YELLOW HIGHLIGHT -->
+        <row/>
+        <item row="8" column="0"><property name="text"><string>05 Feb</string></property><property name="background"><color><red>255</red><green>255</green><blue>77</blue></color></property></item>
+        <item row="8" column="1"><property name="text"><string>BYT007</string></property><property name="background"><color><red>255</red><green>255</green><blue>77</blue></color></property></item>
+        <item row="8" column="2"><property name="text"><string>VH-OQA</string></property><property name="background"><color><red>255</red><green>255</green><blue>77</blue></color></property></item>
+        <item row="8" column="3"><property name="text"><string>YUL</string></property><property name="background"><color><red>255</red><green>255</green><blue>77</blue></color></property></item>
+        <item row="8" column="4"><property name="text"><string>SYD</string></property><property name="background"><color><red>255</red><green>255</green><blue>77</blue></color></property></item>
+        <item row="8" column="5"><property name="text"><string>00:25</string></property><property name="background"><color><red>255</red><green>255</green><blue>77</blue></color></property></item>
+        <item row="8" column="6"><property name="text"><string>00:20</string></property><property name="background"><color><red>255</red><green>255</green><blue>77</blue></color></property></item>
+        <item row="8" column="7"><property name="text"><string>Late aircraft</string></property><property name="background"><color><red>255</red><green>255</green><blue>77</blue></color></property></item>
+        
+        <!-- Row 9 -->
+        <row/>
+        <item row="9" column="0"><property name="text"><string>05 Feb</string></property></item>
+        <item row="9" column="1"><property name="text"><string>BYT011E</string></property></item>
+        <item row="9" column="2"><property name="text"><string>B-KPA</string></property></item>
+        <item row="9" column="3"><property name="text"><string>LHR</string></property></item>
+        <item row="9" column="4"><property name="text"><string>HKG</string></property></item>
+        <item row="9" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="9" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="9" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 10 -->
+        <row/>
+        <item row="10" column="0"><property name="text"><string>05 Feb</string></property></item>
+        <item row="10" column="1"><property name="text"><string>AOM997</string></property></item>
+        <item row="10" column="2"><property name="text"><string>TC-JJI</string></property></item>
+        <item row="10" column="3"><property name="text"><string>DSA</string></property></item>
+        <item row="10" column="4"><property name="text"><string>IST</string></property></item>
+        <item row="10" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="10" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="10" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 11 -->
+        <row/>
+        <item row="11" column="0"><property name="text"><string>06 Feb</string></property></item>
+        <item row="11" column="1"><property name="text"><string>BYT101</string></property></item>
+        <item row="11" column="2"><property name="text"><string>N228UA</string></property></item>
+        <item row="11" column="3"><property name="text"><string>JFK</string></property></item>
+        <item row="11" column="4"><property name="text"><string>LAX</string></property></item>
+        <item row="11" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="11" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="11" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 12 -->
+        <row/>
+        <item row="12" column="0"><property name="text"><string>06 Feb</string></property></item>
+        <item row="12" column="1"><property name="text"><string>MSR911</string></property></item>
+        <item row="12" column="2"><property name="text"><string>D-AIXN</string></property></item>
+        <item row="12" column="3"><property name="text"><string>FRA</string></property></item>
+        <item row="12" column="4"><property name="text"><string>MUC</string></property></item>
+        <item row="12" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="12" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="12" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 13 -->
+        <row/>
+        <item row="13" column="0"><property name="text"><string>06 Feb</string></property></item>
+        <item row="13" column="1"><property name="text"><string>DRD450</string></property></item>
+        <item row="13" column="2"><property name="text"><string>G-TTNA</string></property></item>
+        <item row="13" column="3"><property name="text"><string>LHR</string></property></item>
+        <item row="13" column="4"><property name="text"><string>AMS</string></property></item>
+        <item row="13" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="13" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="13" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 14 -->
+        <row/>
+        <item row="14" column="0"><property name="text"><string>06 Feb</string></property></item>
+        <item row="14" column="1"><property name="text"><string>AOM332</string></property></item>
+        <item row="14" column="2"><property name="text"><string>A7-BAM</string></property></item>
+        <item row="14" column="3"><property name="text"><string>DOH</string></property></item>
+        <item row="14" column="4"><property name="text"><string>CDG</string></property></item>
+        <item row="14" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="14" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="14" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 15 -->
+        <row/>
+        <item row="15" column="0"><property name="text"><string>06 Feb</string></property></item>
+        <item row="15" column="1"><property name="text"><string>BYT202</string></property></item>
+        <item row="15" column="2"><property name="text"><string>N301AX</string></property></item>
+        <item row="15" column="3"><property name="text"><string>ORD</string></property></item>
+        <item row="15" column="4"><property name="text"><string>MIA</string></property></item>
+        <item row="15" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="15" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="15" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 16 -->
+        <row/>
+        <item row="16" column="0"><property name="text"><string>06 Feb</string></property></item>
+        <item row="16" column="1"><property name="text"><string>MSR404</string></property></item>
+        <item row="16" column="2"><property name="text"><string>N902WN</string></property></item>
+        <item row="16" column="3"><property name="text"><string>DFW</string></property></item>
+        <item row="16" column="4"><property name="text"><string>ATL</string></property></item>
+        <item row="16" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="16" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="16" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 17 -->
+        <row/>
+        <item row="17" column="0"><property name="text"><string>06 Feb</string></property></item>
+        <item row="17" column="1"><property name="text"><string>DRD112</string></property></item>
+        <item row="17" column="2"><property name="text"><string>G-UZHA</string></property></item>
+        <item row="17" column="3"><property name="text"><string>LTN</string></property></item>
+        <item row="17" column="4"><property name="text"><string>BCN</string></property></item>
+        <item row="17" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="17" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="17" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 18 -->
+        <row/>
+        <item row="18" column="0"><property name="text"><string>07 Feb</string></property></item>
+        <item row="18" column="1"><property name="text"><string>AOM551</string></property></item>
+        <item row="18" column="2"><property name="text"><string>EI-DEO</string></property></item>
+        <item row="18" column="3"><property name="text"><string>DUB</string></property></item>
+        <item row="18" column="4"><property name="text"><string>LHR</string></property></item>
+        <item row="18" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="18" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="18" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 19 -->
+        <row/>
+        <item row="19" column="0"><property name="text"><string>07 Feb</string></property></item>
+        <item row="19" column="1"><property name="text"><string>BYT099</string></property></item>
+        <item row="19" column="2"><property name="text"><string>N707DN</string></property></item>
+        <item row="19" column="3"><property name="text"><string>LAX</string></property></item>
+        <item row="19" column="4"><property name="text"><string>HNL</string></property></item>
+        <item row="19" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="19" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="19" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 20 -->
+        <row/>
+        <item row="20" column="0"><property name="text"><string>07 Feb</string></property></item>
+        <item row="20" column="1"><property name="text"><string>MSR882</string></property></item>
+        <item row="20" column="2"><property name="text"><string>C-GZHN</string></property></item>
+        <item row="20" column="3"><property name="text"><string>YYZ</string></property></item>
+        <item row="20" column="4"><property name="text"><string>LGW</string></property></item>
+        <item row="20" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="20" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="20" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 21 -->
+        <row/>
+        <item row="21" column="0"><property name="text"><string>07 Feb</string></property></item>
+        <item row="21" column="1"><property name="text"><string>DRD774</string></property></item>
+        <item row="21" column="2"><property name="text"><string>VH-VNJ</string></property></item>
+        <item row="21" column="3"><property name="text"><string>MEL</string></property></item>
+        <item row="21" column="4"><property name="text"><string>SIN</string></property></item>
+        <item row="21" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="21" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="21" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 22 -->
+        <row/>
+        <item row="22" column="0"><property name="text"><string>07 Feb</string></property></item>
+        <item row="22" column="1"><property name="text"><string>AOM114</string></property></item>
+        <item row="22" column="2"><property name="text"><string>9V-SMG</string></property></item>
+        <item row="22" column="3"><property name="text"><string>SIN</string></property></item>
+        <item row="22" column="4"><property name="text"><string>NRT</string></property></item>
+        <item row="22" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="22" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="22" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 23 -->
+        <row/>
+        <item row="23" column="0"><property name="text"><string>07 Feb</string></property></item>
+        <item row="23" column="1"><property name="text"><string>BYT312</string></property></item>
+        <item row="23" column="2"><property name="text"><string>JA801A</string></property></item>
+        <item row="23" column="3"><property name="text"><string>HND</string></property></item>
+        <item row="23" column="4"><property name="text"><string>SFO</string></property></item>
+        <item row="23" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="23" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="23" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 24 -->
+        <row/>
+        <item row="24" column="0"><property name="text"><string>07 Feb</string></property></item>
+        <item row="24" column="1"><property name="text"><string>MSR519</string></property></item>
+        <item row="24" column="2"><property name="text"><string>HL7643</string></property></item>
+        <item row="24" column="3"><property name="text"><string>ICN</string></property></item>
+        <item row="24" column="4"><property name="text"><string>SFO</string></property></item>
+        <item row="24" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="24" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="24" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 25 -->
+        <row/>
+        <item row="25" column="0"><property name="text"><string>08 Feb</string></property></item>
+        <item row="25" column="1"><property name="text"><string>DRD339</string></property></item>
+        <item row="25" column="2"><property name="text"><string>B-LRA</string></property></item>
+        <item row="25" column="3"><property name="text"><string>HKG</string></property></item>
+        <item row="25" column="4"><property name="text"><string>SYD</string></property></item>
+        <item row="25" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="25" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="25" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 26 -->
+        <row/>
+        <item row="26" column="0"><property name="text"><string>08 Feb</string></property></item>
+        <item row="26" column="1"><property name="text"><string>AOM812</string></property></item>
+        <item row="26" column="2"><property name="text"><string>ZK-NZE</string></property></item>
+        <item row="26" column="3"><property name="text"><string>AKL</string></property></item>
+        <item row="26" column="4"><property name="text"><string>LAX</string></property></item>
+        <item row="26" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="26" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="26" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 27 -->
+        <row/>
+        <item row="27" column="0"><property name="text"><string>08 Feb</string></property></item>
+        <item row="27" column="1"><property name="text"><string>BYT404</string></property></item>
+        <item row="27" column="2"><property name="text"><string>VT-ANB</string></property></item>
+        <item row="27" column="3"><property name="text"><string>DEL</string></property></item>
+        <item row="27" column="4"><property name="text"><string>LHR</string></property></item>
+        <item row="27" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="27" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="27" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 28 -->
+        <row/>
+        <item row="28" column="0"><property name="text"><string>08 Feb</string></property></item>
+        <item row="28" column="1"><property name="text"><string>MSR667</string></property></item>
+        <item row="28" column="2"><property name="text"><string>SU-GDG</string></property></item>
+        <item row="28" column="3"><property name="text"><string>CAI</string></property></item>
+        <item row="28" column="4"><property name="text"><string>DXB</string></property></item>
+        <item row="28" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="28" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="28" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+        
+        <!-- Row 29 -->
+        <row/>
+        <item row="29" column="0"><property name="text"><string>08 Feb</string></property></item>
+        <item row="29" column="1"><property name="text"><string>DRD912</string></property></item>
+        <item row="29" column="2"><property name="text"><string>A7-APA</string></property></item>
+        <item row="29" column="3"><property name="text"><string>DOH</string></property></item>
+        <item row="29" column="4"><property name="text"><string>JFK</string></property></item>
+        <item row="29" column="5"><property name="text"><string>00:00</string></property></item>
+        <item row="29" column="6"><property name="text"><string>00:00</string></property></item>
+        <item row="29" column="7">
+         <property name="text"><string>On-time</string></property>
+         <property name="foreground"><color><red>34</red><green>139</green><blue>34</blue></color></property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
