@@ -1,99 +1,96 @@
-# team-05-ReadyForTakeoff
-Git repository for team-05(Team Fox) on the challenge 'Ready for Takeoff' by DATAbility
+DATAbility: Ready for Takeoff
+Explainable Flight Delay Risk Assistant for Airline Operations Controllers
 
-Challenge    - DATAbility - Ready for Takeoff
-               Build a delay risk tool to forecast flight delays, quantify the risk, 
-Team no.     - 05
-Team Name    - Team Fox
-Team Members - Harshal Hisoriya
-               Yash Thummar
-               Tanay Patel
-               Bhargava Reddy
+## Team Information
+Team Number: 05
+Team Name : Team Fox
+Team Members:
+* [Harshal Hisoriya]
+* [Tanay Patel]
+* [Yash Thummar]
+* [Bhargava Reddy]
 
-## Logistic regression delay-risk model
+---
 
-This repo contains a leak-free logistic regression model for predicting whether a
-flight is likely to depart 15+ minutes late. It follows the starter-kit rules:
+## Challenge:
 
-- Target: `delayed_15`
-- Allowed signals: schedule fields, route/airport fields, origin weather, and a
-  derived inbound-aircraft cascade signal from `tail_number`
-- Excluded answer-key columns: `dep_delay_min`, `arr_delay_min`, `delayed_15`,
-  `cancelled`, `delay_cause`, `late_aircraft_delay_min`, and
-  `weather_delay_min`
-- Validation: forward split by date, holding out the last 20% of days
+Challenge Name: DATAbility | Ready for Takeoff
 
-The model output is built for an operations controller: each scored flight gets a
-delay probability, risk band, top reason signals, and a recommended action.
+We are tackling the problem of flight delay prediction and decision support for airline operations teams. The goal is not only to predict whether a flight may be delayed, but also to explain why the delay risk exists and recommend feasible solution for it.
 
-## Project layout
+---
 
-```text
-data/flights_weather_sample.csv        Provided real flights plus weather sample
-src/ready_for_takeoff/delay_model.py   Feature engineering, training, scoring
-scripts/train_model.py                 Train and save the logistic regression model
-scripts/predict_delay.py               Score flights with the saved model
-models/metrics.json                    Validation metrics from the latest run
-models/validation_predictions.csv      Held-out validation scores
-models/scored_flights.csv              Full sample scores for demo use
-tests/test_delay_model.py              Leakage and cascade feature tests
-```
+## Problem:
 
-## Setup
+Every day, airline operations teams must decide which flights are at risk of delay and what actions should be taken before the delay spreads through the network.
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
+The biggest operational problem is not only one delayed flight. The real damage happens when one delayed aircraft affects its next leg, then the next leg, and eventually causes missed connections, crew issues, gate conflicts, and network-wide disruption.
 
-If the dependencies are already installed, set `PYTHONPATH=src` and run the
-commands directly.
+Today, operations controllers often rely on scattered dashboards, manual monitoring, and experience-based judgment. Existing tools may show flight status or delay numbers, but they often do not clearly explain the reason behind the risk. A black-box risk score is difficult for an operator to trust and act on.
 
-## Train
+---
 
-```bash
-PYTHONPATH=src python3 scripts/train_model.py
-```
+## Customer
 
-This writes:
+Our primary customer is: Airline Operations Controller / Duty Controller / OCC Dispatcher
 
-- `models/delay_logreg.joblib`
-- `models/metrics.json`
-- `models/validation_predictions.csv`
+The user works inside the airline operations control center and makes real-time decisions such as:
 
-Latest validation result on the provided sample:
+* Which flights need close monitoring
+* Whether to prepare faster turnaround support
+* Whether to alert ground operations
+* Whether to check backup aircraft availability
+* Whether to prioritize certain flights because of cascade risk
+* Whether weather or congestion may affect departure reliability
 
-```text
-ROC AUC: 0.668
-Average precision: 0.524
-Accuracy: 0.654
-Precision: 0.493
-Recall: 0.493
-F1: 0.493
-```
+We are not building this tool for passengers. We are building it for the people responsible for keeping the airline schedule running safely.
 
-## Score flights
+---
 
-```bash
-PYTHONPATH=src python3 scripts/predict_delay.py \
-  --model models/delay_logreg.joblib \
-  --input data/flights_weather_sample.csv \
-  --output models/scored_flights.csv \
-  --include-actuals
-```
+## Validated Problem
 
-`--include-actuals` is for validation and demos only. Do not treat the answer-key
-columns as live predictive inputs.
+The provided challenge material identifies flight delays and cancellations as a major operational and financial problem for airlines. It also emphasizes that delays often spread through the aircraft network. A late aircraft can delay the next flight, which can then delay later flights.
 
-## Example output columns
+The provided dataset also supports this problem because it contains:
 
-```text
-flight_id, date, carrier, flight_number, origin, dest, sched_dep_local,
-delay_probability, risk_band, predicted_delayed_15, top_reason,
-reason_details, recommended_action
-```
+* Real scheduled flights
+* Aircraft tail numbers
+* Previous flights Departure and arrival delay
+* Weather conditions at the origin airport
+* Day and Time
 
-Example actions include checking the inbound aircraft, preparing de-icing or
-weather mitigation, coordinating gate/ramp/ATC constraints, or monitoring low
-risk flights without intervention.
+The key insight is that late inbound aircraft, weather pressure, and airport congestion together create operational delay risk. Weather alone is not the full explanation. It often acts as a catalyst that triggers congestion and cascade delays.
+
+---
+
+## Solution
+
+Our solution is a flight delay risk assistant called: Delay Risk Model watchlist which informs whether a flight is likely to be delayed by 15 minutes or more. More importantly, it explains the reason behind the risk, severity and gives a recommended action to user.
+---
+
+## Value Proposition
+
+Delay Risk Model watchlist helps airline operation teams to move from reactive delay management to proactive decision support.
+
+### What makes it valuable?
+
+1. **Cascade-aware decision support**
+   The model uses aircraft tail-number chaining to estimate whether the previous flight can affect the current one.
+
+2. **Weather-aware but not weather-only**
+   Weather is treated as an operational pressure signal, not as the only cause of delay.
+
+3. **Actionable recommendations**
+   The tool recommends what the controller should do, such as monitoring the inbound aircraft, alerting ground operations, or preparing fast turnaround support.
+
+4. **Built for airline operations, not passengers**
+   The interface is designed for a duty controller or OCC dispatcher who needs to make fast operational decisions.
+
+## [JupyterNotebook](https://github.com/BhargavReddy-dev/team-05-ReadyForTakeoff/blob/main/delay_risk_model_full_notebook.ipynb)
+Please click on the link to access our actual code file 
+
+## [AnalysisnResults](https://github.com/BhargavReddy-dev/team-05-ReadyForTakeoff/blob/main/Team-05-fox-Analysis-Results.pdf)
+Please click on the link to access a few of our Results from analysis and simulations.
+
+## [DemoPrototype](https://html-preview.github.io/?url=https://github.com/BhargavReddy-dev/team-05-ReadyForTakeoff/blob/main/Team-05-fox-Demo.html)
+Please click on the link to access our DemoPrototype.
