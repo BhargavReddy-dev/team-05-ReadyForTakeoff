@@ -2,8 +2,11 @@ DATAbility: Ready for Takeoff
 Explainable Flight Delay Risk Assistant for Airline Operations Controllers
 
 ## Team Information
+
 Team Number: 05
+
 Team Name : Team Fox
+
 Team Members:
 * [Harshal Hisoriya]
 * [Tanay Patel]
@@ -86,11 +89,24 @@ Delay Risk Model watchlist helps airline operation teams to move from reactive d
 4. **Built for airline operations, not passengers**
    The interface is designed for a duty controller or OCC dispatcher who needs to make fast operational decisions.
 
+## [DemoPrototype](https://html-preview.github.io/?url=https://github.com/BhargavReddy-dev/team-05-ReadyForTakeoff/blob/main/Team-05-fox-Demo.html)
+Please click on the above link to access our DemoPrototype.
+
 ## [JupyterNotebook](https://github.com/BhargavReddy-dev/team-05-ReadyForTakeoff/blob/main/delay_risk_model_full_notebook.ipynb)
 Please click on the link to access our actual code file 
 
 ## [AnalysisnResults](https://github.com/BhargavReddy-dev/team-05-ReadyForTakeoff/blob/main/Team-05-fox-Analysis-Results.pdf)
 Please click on the link to access a few of our Results from analysis and simulations.
 
+## [ML Model](https://github.com/BhargavReddy-dev/team-05-ReadyForTakeoff/blob/main/random_forest_delay_risk_pipeline.joblib)
+Please click on the link to access a few of our model.
+
+## [ML Model Output](https://github.com/BhargavReddy-dev/team-05-ReadyForTakeoff/blob/main/test_day_predictions_RANDOM_FOREST_with_potential_and_actual_delay_cause.csv)
+Please click on the link to access a few of our model's output.
+
+
 ## [DemoPrototype](https://html-preview.github.io/?url=https://github.com/BhargavReddy-dev/team-05-ReadyForTakeoff/blob/main/Team-05-fox-Demo.html)
-Please click on the link to access our DemoPrototype.
+Please click on the above link to access our DemoPrototype.
+
+just to be safe:
+https://html-preview.github.io/?url=https://github.com/BhargavReddy-dev/team-05-ReadyForTakeoff/blob/main/Team-05-fox-Demo.html
